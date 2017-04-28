@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<process name="LoanApplicationPigProcess" xmlns="uri:falcon:process:0.1">
+    <tags>tag=LoanApplication</tags>
+    <clusters>
+        <cluster name="primaryCluster" version="0">
+            <validity start="2017-04-27T10:45Z" end="2017-04-27T14:29Z"/>
+        </cluster>
+    </clusters>
+    <parallel>1</parallel>
+    <order>FIFO</order>
+    <frequency>minutes(10)</frequency>
+    <timezone>GMT+05:30</timezone>
+    <inputs>
+        <input name="LoanApplicationRaw" feed="LoanApplicationRaw" start="now(0,0)" end="now(0,0)"/>
+        <input name="AccountRaw" feed="AccountRaw" start="now(0,0)" end="now(0,0)"/>
+    </inputs>
+    <outputs>
+        <output name="LoanApplicationTransient" feed="LoanApplicationTransient" instance="now(0,0)"/>
+    </outputs>
+    <workflow name="LoanApplicationPigProcess" engine="pig" path="/user/tsldp/loan_scripts/scripts/cu_loan_application_transient.pig"/>
+    <retry policy="periodic" delay="minutes(30)" attempts="3"/>
+    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+</process>

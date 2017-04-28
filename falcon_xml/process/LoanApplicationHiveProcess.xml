@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<process name="LoanApplicationHiveProcess" xmlns="uri:falcon:process:0.1">
+    <tags>tag=LoanApplication</tags>
+    <clusters>
+        <cluster name="primaryCluster" version="0">
+            <validity start="2017-04-27T10:55Z" end="2017-04-27T18:29Z"/>
+        </cluster>
+    </clusters>
+    <parallel>1</parallel>
+    <order>FIFO</order>
+    <frequency>minutes(10)</frequency>
+    <timezone>GMT+05:30</timezone>
+    <inputs>
+        <input name="input" feed="LoanApplicationTransient" start="now(0,0)" end="now(0,0)"/>
+    </inputs>
+    <workflow name="LoanApplicationHiveProcess" engine="hive" path="/user/tsldp/loan_scripts/scripts/cu_loan_transient.hql"/>
+    <retry policy="periodic" delay="minutes(30)" attempts="3"/>
+    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+</process>

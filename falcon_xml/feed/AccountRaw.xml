@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed name="AccountRaw" description="Account Raw Hive Input Table" xmlns="uri:falcon:feed:0.1">
+    <tags>tag=LoanApplication</tags>
+    <frequency>minutes(10)</frequency>
+    <timezone>GMT+05:30</timezone>
+    <late-arrival cut-off="hours(4)"/>
+    <clusters>
+        <cluster name="primaryCluster" type="source" version="0">
+            <validity start="2017-04-27T10:37Z" end="2017-04-27T14:29Z"/>
+            <retention limit="days(90)" action="delete"/>
+            <table uri="catalog:cu_data_raw:cu_account_raw#insert_date=${YEAR}-${MONTH}-${DAY}"/>
+        </cluster>
+    </clusters>
+    <table uri="catalog:cu_data_raw:cu_account_raw#insert_date=${YEAR}-${MONTH}-${DAY}"/>
+    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <schema location="hcat" provider="hcat"/>
+    <properties>
+        <property name="queueName" value="default"/>
+        <property name="jobPriority" value="HIGH"/>
+        <property name="parallel" value="1"/>
+        <property name="maxMaps" value="1"/>
+        <property name="mapBandwidthKB" value="1024"/>
+    </properties>
+</feed>

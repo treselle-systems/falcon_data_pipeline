@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed name="LoanApplicationTransient" description="Loan Application Transient HDFS Path" xmlns="uri:falcon:feed:0.1">
+    <tags>tag=LoanApplication</tags>
+    <frequency>minutes(10)</frequency>
+    <timezone>GMT+05:30</timezone>
+    <late-arrival cut-off="hours(4)"/>
+    <clusters>
+        <cluster name="primaryCluster" type="source" version="0">
+            <validity start="2017-04-27T10:42Z" end="2017-04-27T14:29Z"/>
+            <retention limit="days(90)" action="delete"/>
+            <locations>
+                <location type="data" path="/user/tsldp/cu_loan_application/"/>
+                <location type="stats" path="/"/>
+            </locations>
+        </cluster>
+    </clusters>
+    <locations>
+        <location type="data" path="/user/tsldp/cu_loan_application/"/>
+        <location type="stats" path="/"/>
+    </locations>
+    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <schema location="/none" provider="/none"/>
+    <properties>
+        <property name="queueName" value="default"/>
+        <property name="jobPriority" value="NORMAL"/>
+        <property name="parallel" value="1"/>
+        <property name="maxMaps" value="1"/>
+        <property name="mapBandwidthKB" value="1024"/>
+    </properties>
+</feed>
